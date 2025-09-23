@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Hello World</title>
+  <meta charset="UTF-8">
+  <title>My Video Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #333;
+    }
+    .video-container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    video {
+      width: 100%;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello from GitHub Pages!</h1>
-  <p>This site is free and online 24/7 🚀</p>
+
+  <h1>🎬 Welcome to My Video Page</h1>
+
+  <div class="video-container">
+    <h2>My First Video</h2>
+    <video controls>
+      <source src="https://drive.google.com/uc?export=download&id=1Mw5N5HFRMkLBArHEDme8Oh9OqVX-3Em_" type="video/mp4">
+      Sorry, your browser doesn’t support embedded videos.
+    </video>
+  </div>
+
 </body>
 </html>
