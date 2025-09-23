@@ -21,10 +21,8 @@
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    iframe {
+    video {
       width: 100%;
-      height: 450px;
-      border: none;
       border-radius: 10px;
     }
   </style>
@@ -35,9 +33,10 @@
 
   <div class="video-container">
     <h2>My First Video</h2>
-    <iframe src="https://drive.google.com/file/d/1Mw5N5HFRMkLBArHEDme8Oh9OqVX-3Em_/view?usp=sharing"
-            allow="autoplay">
-    </iframe>
+    <video controls>
+      <source src="https://drive.google.com/uc?export=download&id=1Mw5N5HFRMkLBArHEDme8Oh9OqVX-3Em_" type="video/mp4">
+      Sorry, your browser doesn’t support embedded videos.
+    </video>
   </div>
 
 </body>
