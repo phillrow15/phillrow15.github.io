@@ -2,17 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Video</title>
+  <title>My Video Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #333;
+    }
+    .video-container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    iframe {
+      width: 100%;
+      height: 450px;
+      border: none;
+      border-radius: 10px;
+    }
+  </style>
 </head>
-<body style="text-align:center; background:#f4f4f4; font-family:Arial;">
+<body>
 
-  <h1>🎬 My Video</h1>
+  <h1>🎬 Welcome to My Video Page</h1>
 
-  <video width="800" controls>
-    <!-- Replace the ID below with your Google Drive file ID -->
-    <source src="https://drive.google.com/uc?export=download&id=1Mw5N5HFRMkLBArHEDme8Oh9OqVX-3Em_" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <div class="video-container">
+    <h2>しぐれういの初配信です！</h2>
+    <iframe src="https://drive.google.com/file/d/1Mw5N5HFRMkLBArHEDme8Oh9OqVX-3Em_/preview"
+          width="800" height="450" allow="autoplay">
+    </iframe>
+  </div>
 
+  <div class="video-container">
+    <h2>お話しながらお絵かきする【#01】</h2>
+    <iframe src="https://drive.google.com/file/d/1JN_y3zfT7VON5RxUSWdMEJbW5mvIIInw/preview"
+          width="800" height="450" allow="autoplay">
+    </iframe>
+  </div>
+
+  <div class="video-container">
+    <h2>ありがとうを言いながらお絵かきする【#02】</h2>
+    <iframe src="https://drive.google.com/file/d/1FRJFWxE_FJ-RetgwHJ8P8um9YkTY-agW/preview"
+          width="800" height="450" allow="autoplay">
+    </iframe>
+  </div>
+
+  <div class="video-container">
+    <h2>【作業雑談】仕事をするのでお話相手になってほしい</h2>
+    <iframe src="https://drive.google.com/file/d/1hjVpQ098riPaGuBHujT4ZtoMbc86PpZ-/preview"
+          width="800" height="450" allow="autoplay">
+    </iframe>
+  </div>
+
+  <div class="video-container">
+    <h2>告知をしたいしぐれうい【＋雑談】</h2>
+    <iframe src="https://drive.google.com/file/d/1X8fVpp7JmvkKjktIhvK5Akm2N2oje_Je/preview"
+          width="800" height="450" allow="autoplay">
+    </iframe>
+  </div>
+  
 </body>
 </html>
