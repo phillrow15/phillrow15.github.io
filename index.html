@@ -11,104 +11,84 @@
       text-align: center;
       padding: 40px;
     }
-
     h1 {
       color: #333;
     }
-
     .video-container {
-      position: relative;
       max-width: 800px;
-      width: 100%;
-      margin: 30px auto;
+      margin: auto;
       background: #fff;
-      padding: 15px;
+      padding: 20px;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-
-    .video-container h2 {
-      margin-bottom: 10px;
-      font-size: 18px;
-      color: #222;
-    }
-
-    .video-frame {
+    iframe {
       width: 100%;
       height: 450px;
       border: none;
       border-radius: 10px;
     }
-
-    /* Overlay (thumbnail + play button) */
-    .overlay {
-      position: absolute;
-      top: 55px; /* account for the h2 + padding */
-      left: 15px;
-      right: 15px;
-      height: 450px;
-      border-radius: 10px;
-      background: rgba(0,0,0,0.6);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .overlay img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-
-    .play-btn {
-      position: absolute;
-      font-size: 64px;
-      color: white;
-      text-shadow: 0 0 12px black;
-      pointer-events: none;
-    }
-
-    .hidden {
-      display: none;
-    }
   </style>
 </head>
 <body>
 
-<h1>🎬 Welcome to Shigure UI video's Page (not official)</h1>
+  <h1>🎬 Welcome to Shigure UI video's Page (not official)</h1>
 
-<!-- Video Example -->
-<div class="video-container">
-  <h2>告知をしたいしぐれうい【＋雑談】</h2>
-  <iframe class="video-frame" 
-          src="https://drive.google.com/file/d/1X8fVpp7JmvkKjktIhvK5Akm2N2oje_Je/preview"
-          allow="autoplay">
-  </iframe>
-  <div class="overlay">
-    <img src="thumbnail_5.png" alt="Video thumbnail">
-    <div class="play-btn">▶️</div>
+  <div class="video-container">
+    <h2>しぐれういの初配信です！</h2>
+    <iframe src="https://drive.google.com/file/d/1Mw5N5HFRMkLBArHEDme8Oh9OqVX-3Em_/preview"
+          width="800" height="450" allow="autoplay">
+    </iframe>
   </div>
-</div>
 
-<script>
-  // Handle play overlay clicks
-  document.querySelectorAll('.video-container').forEach(container => {
-    const overlay = container.querySelector('.overlay');
-    const iframe = container.querySelector('.video-frame');
+  <div class="video-container">
+    <h2>お話しながらお絵かきする【#01】</h2>
+    <iframe src="https://drive.google.com/file/d/1JN_y3zfT7VON5RxUSWdMEJbW5mvIIInw/preview"
+          width="800" height="450" allow="autoplay">
+    </iframe>
+  </div>
 
-    overlay.addEventListener('click', () => {
-      overlay.classList.add('hidden');
+  <div class="video-container">
+    <h2>ありがとうを言いながらお絵かきする【#02】</h2>
+    <iframe src="https://drive.google.com/file/d/1FRJFWxE_FJ-RetgwHJ8P8um9YkTY-agW/preview"
+          width="800" height="450" allow="autoplay">
+    </iframe>
+  </div>
 
-      // Trick: reload iframe with autoplay param
-      let src = iframe.src;
-      if (!src.includes("autoplay=1")) {
-        iframe.src = src + (src.includes("?") ? "&autoplay=1" : "?autoplay=1");
-      }
-    });
-  });
-</script>
+  <div class="video-container">
+    <h2>【作業雑談】仕事をするのでお話相手になってほしい</h2>
+    <iframe src="https://drive.google.com/file/d/1hjVpQ098riPaGuBHujT4ZtoMbc86PpZ-/preview"
+          width="800" height="450" allow="autoplay">
+    </iframe>
+  </div>
 
+  <div class="video-container">
+    <h2>告知をしたいしぐれうい【＋雑談】</h2>
+    <iframe src="https://drive.google.com/file/d/1X8fVpp7JmvkKjktIhvK5Akm2N2oje_Je/preview"
+          width="800" height="450" allow="autoplay">
+    </iframe>
+  </div>
+
+    <div class="video-container">
+    <h2>夏コミや新衣装のお話がしたい！</h2>
+    <iframe src="https://drive.google.com/file/d/10Uo6gK4WPtMgmuKgHRoG0sOHg1olwMy7/preview"
+          width="800" height="450" allow="autoplay">
+    </iframe>
+  </div>
+
+    <div class="video-container">
+    <h2>【Project Winter】犯人じゃないです！信じてください！【しぐれうい視点】</h2>
+    <iframe src="https://drive.google.com/file/d/1kVCky8bmpOHkrXGUuh-9dCEMLykDH7CU/preview"
+          width="800" height="450" allow="autoplay">
+    </iframe>
+  </div>
+
+    <div class="video-container">
+    <h2>【雑談】まったりお話させておくれよ</h2>
+    <iframe src="https://drive.google.com/file/d/1KEBaYht3tdZWA_RKT62g5lF6IaA3Vdqe/preview"
+          width="800" height="450" allow="autoplay">
+    </iframe>
+  </div>
+  
 </body>
 </html>
