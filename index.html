@@ -50,6 +50,17 @@
             width="800" height="450" allow="autoplay" style="display:none; border:none;">
     </iframe>
   </div>
+  <script>
+    const container = document.querySelector('.video-container');
+    const thumbnail = document.getElementById('thumbnail');
+    const iframe = document.getElementById('videoIframe');
+  
+    container.addEventListener('click', () => {
+      thumbnail.style.display = 'none';   // hide thumbnail
+      container.querySelector('.play-button').style.display = 'none'; // hide play icon
+      iframe.style.display = 'block';     // show iframe
+    });
+  </script>
 
   <div class="video-container">
     <h2>お話しながらお絵かきする【#01】</h2>
