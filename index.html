@@ -11,251 +11,138 @@
       text-align: center;
       padding: 40px;
     }
+
     h1 {
       color: #333;
     }
+
     .video-container {
+      position: relative;
       max-width: 800px;
-      margin: auto;
+      width: 100%;
+      margin: 30px auto;
       background: #fff;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
     }
-    iframe {
+
+    .video-container h2 {
+      margin-bottom: 15px;
+    }
+
+    .thumbnail {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 64px;
+      color: white;
+      text-shadow: 0 0 10px black;
+      pointer-events: none;
+    }
+
+    .videoIframe {
       width: 100%;
       height: 450px;
       border: none;
       border-radius: 10px;
+      display: none;
     }
   </style>
 </head>
 <body>
 
-  <h1>🎬 Welcome to Shigure UI video's Page (not official)</h1>
+<h1>🎬 Welcome to Shigure UI video's Page (not official)</h1>
 
-  <div class="video-container" style="position: relative; width: 800px; max-width: 450px; cursor: pointer;">
-    <h2>しぐれういの初配信ですhello！</h2>
-  
-    <!-- Custom thumbnail -->
-    <img id="thumbnail" src="thumbnail_1.png" alt="Video thumbnail" style="width:100%; display:block;">
-    <div class="play-button" 
-         style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
-                font-size:64px; color:white; text-shadow: 0 0 10px black; pointer-events:none;">
-      ▶️
-    </div>
-  
-    <!-- Hidden iframe -->
-    <iframe id="videoIframe" src="https://drive.google.com/file/d/1Mw5N5HFRMkLBArHEDme8Oh9OqVX-3Em_/preview"
-            width="800" height="450" allow="autoplay" style="display:none; border:none;">
-    </iframe>
-  </div>
-  <script>
-    const container = document.querySelector('.video-container');
-    const thumbnail = document.getElementById('thumbnail');
-    const iframe = document.getElementById('videoIframe');
-  
-    container.addEventListener('click', () => {
-      thumbnail.style.display = 'none';   // hide thumbnail
-      container.querySelector('.play-button').style.display = 'none'; // hide play icon
-      iframe.style.display = 'block';     // show iframe
-    });
-  </script>
+<!-- Video 1 -->
+<div class="video-container">
+  <h2>しぐれういの初配信ですhello！</h2>
+  <img class="thumbnail" src="thumbnail_1.png" alt="Video thumbnail">
+  <div class="play-button">▶️</div>
+  <iframe class="videoIframe" src="https://drive.google.com/file/d/1Mw5N5HFRMkLBArHEDme8Oh9OqVX-3Em_/preview" allow="autoplay"></iframe>
+</div>
 
-  
-  <div class="video-container" style="position: relative; width: 800px; max-width: 450px; cursor: pointer;">
-    <h2>お話しながらお絵かきする【#01】</h2>
-    <!-- Custom thumbnail -->
-    <img id="thumbnail" src="thumbnail_2.png" alt="Video thumbnail" style="width:100%; display:block;">
-    <div class="play-button" 
-         style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
-                font-size:64px; color:white; text-shadow: 0 0 10px black; pointer-events:none;">
-      ▶️
-    </div>
-  
-    <!-- Hidden iframe -->
-    <iframe id="videoIframe" src="https://drive.google.com/file/d/1JN_y3zfT7VON5RxUSWdMEJbW5mvIIInw/preview"
-            width="800" height="450" allow="autoplay" style="display:none; border:none;">
-    </iframe>
-  </div>
-  <script>
-    const container = document.querySelector('.video-container');
-    const thumbnail = document.getElementById('thumbnail');
-    const iframe = document.getElementById('videoIframe');
-  
-    container.addEventListener('click', () => {
-      thumbnail.style.display = 'none';   // hide thumbnail
-      container.querySelector('.play-button').style.display = 'none'; // hide play icon
-      iframe.style.display = 'block';     // show iframe
-    });
-  </script>
+<!-- Video 2 -->
+<div class="video-container">
+  <h2>お話しながらお絵かきする【#01】</h2>
+  <img class="thumbnail" src="thumbnail_2.png" alt="Video thumbnail">
+  <div class="play-button">▶️</div>
+  <iframe class="videoIframe" src="https://drive.google.com/file/d/1JN_y3zfT7VON5RxUSWdMEJbW5mvIIInw/preview" allow="autoplay"></iframe>
+</div>
 
-  <div class="video-container" style="position: relative; width: 800px; max-width: 450px; cursor: pointer;">
-    <h2>ありがとうを言いながらお絵かきする【#02】</h2>
-  
-    <!-- Custom thumbnail -->
-    <img id="thumbnail" src="thumbnail_3.png" alt="Video thumbnail" style="width:100%; display:block;">
-    <div class="play-button" 
-         style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
-                font-size:64px; color:white; text-shadow: 0 0 10px black; pointer-events:none;">
-      ▶️
-    </div>
-  
-    <!-- Hidden iframe -->
-    <iframe id="videoIframe" src="https://drive.google.com/file/d/1FRJFWxE_FJ-RetgwHJ8P8um9YkTY-agW/preview"
-            width="800" height="450" allow="autoplay" style="display:none; border:none;">
-    </iframe>
-  </div>
-  <script>
-    const container = document.querySelector('.video-container');
-    const thumbnail = document.getElementById('thumbnail');
-    const iframe = document.getElementById('videoIframe');
-  
-    container.addEventListener('click', () => {
-      thumbnail.style.display = 'none';   // hide thumbnail
-      container.querySelector('.play-button').style.display = 'none'; // hide play icon
-      iframe.style.display = 'block';     // show iframe
-    });
-  </script>
+<!-- Video 3 -->
+<div class="video-container">
+  <h2>ありがとうを言いながらお絵かきする【#02】</h2>
+  <img class="thumbnail" src="thumbnail_3.png" alt="Video thumbnail">
+  <div class="play-button">▶️</div>
+  <iframe class="videoIframe" src="https://drive.google.com/file/d/1FRJFWxE_FJ-RetgwHJ8P8um9YkTY-agW/preview" allow="autoplay"></iframe>
+</div>
 
-  <div class="video-container" style="position: relative; width: 800px; max-width: 450px; cursor: pointer;">
-    <h2>【作業雑談】仕事をするのでお話相手になってほしい</h2>
-  
-    <!-- Custom thumbnail -->
-    <img id="thumbnail" src="thumbnail_4.png" alt="Video thumbnail" style="width:100%; display:block;">
-    <div class="play-button" 
-         style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
-                font-size:64px; color:white; text-shadow: 0 0 10px black; pointer-events:none;">
-      ▶️
-    </div>
-  
-    <!-- Hidden iframe -->
-    <iframe id="videoIframe" src="https://drive.google.com/file/d/1hjVpQ098riPaGuBHujT4ZtoMbc86PpZ-/preview"
-            width="800" height="450" allow="autoplay" style="display:none; border:none;">
-    </iframe>
-  </div>
-  <script>
-    const container = document.querySelector('.video-container');
-    const thumbnail = document.getElementById('thumbnail');
-    const iframe = document.getElementById('videoIframe');
-  
-    container.addEventListener('click', () => {
-      thumbnail.style.display = 'none';   // hide thumbnail
-      container.querySelector('.play-button').style.display = 'none'; // hide play icon
-      iframe.style.display = 'block';     // show iframe
-    });
-  </script>
+<!-- Video 4 -->
+<div class="video-container">
+  <h2>【作業雑談】仕事をするのでお話相手になってほしい</h2>
+  <img class="thumbnail" src="thumbnail_4.png" alt="Video thumbnail">
+  <div class="play-button">▶️</div>
+  <iframe class="videoIframe" src="https://drive.google.com/file/d/1hjVpQ098riPaGuBHujT4ZtoMbc86PpZ-/preview" allow="autoplay"></iframe>
+</div>
 
-  <div class="video-container" style="position: relative; width: 800px; max-width: 450px; cursor: pointer;">
-    <h2>告知をしたいしぐれうい【＋雑談】</h2>
-  
-    <!-- Custom thumbnail -->
-    <img id="thumbnail" src="thumbnail_5.png" alt="Video thumbnail" style="width:100%; display:block;">
-    <div class="play-button" 
-         style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
-                font-size:64px; color:white; text-shadow: 0 0 10px black; pointer-events:none;">
-      ▶️
-    </div>
-  
-    <!-- Hidden iframe -->
-    <iframe id="videoIframe" src="https://drive.google.com/file/d/1X8fVpp7JmvkKjktIhvK5Akm2N2oje_Je/preview"
-            width="800" height="450" allow="autoplay" style="display:none; border:none;">
-    </iframe>
-  </div>
-  <script>
-    const container = document.querySelector('.video-container');
-    const thumbnail = document.getElementById('thumbnail');
-    const iframe = document.getElementById('videoIframe');
-  
-    container.addEventListener('click', () => {
-      thumbnail.style.display = 'none';   // hide thumbnail
-      container.querySelector('.play-button').style.display = 'none'; // hide play icon
-      iframe.style.display = 'block';     // show iframe
-    });
-  </script>
+<!-- Video 5 -->
+<div class="video-container">
+  <h2>告知をしたいしぐれうい【＋雑談】</h2>
+  <img class="thumbnail" src="thumbnail_5.png" alt="Video thumbnail">
+  <div class="play-button">▶️</div>
+  <iframe class="videoIframe" src="https://drive.google.com/file/d/1X8fVpp7JmvkKjktIhvK5Akm2N2oje_Je/preview" allow="autoplay"></iframe>
+</div>
 
-  <div class="video-container" style="position: relative; width: 800px; max-width: 450px; cursor: pointer;">
-    <h2>夏コミや新衣装のお話がしたい！</h2>
-  
-    <!-- Custom thumbnail -->
-    <img id="thumbnail" src="thumbnail_6.png" alt="Video thumbnail" style="width:100%; display:block;">
-    <div class="play-button" 
-         style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
-                font-size:64px; color:white; text-shadow: 0 0 10px black; pointer-events:none;">
-      ▶️
-    </div>
-  
-    <!-- Hidden iframe -->
-    <iframe id="videoIframe" src="https://drive.google.com/file/d/10Uo6gK4WPtMgmuKgHRoG0sOHg1olwMy7/preview"
-            width="800" height="450" allow="autoplay" style="display:none; border:none;">
-    </iframe>
-  </div>
-  <script>
-    const container = document.querySelector('.video-container');
-    const thumbnail = document.getElementById('thumbnail');
-    const iframe = document.getElementById('videoIframe');
-  
-    container.addEventListener('click', () => {
-      thumbnail.style.display = 'none';   // hide thumbnail
-      container.querySelector('.play-button').style.display = 'none'; // hide play icon
-      iframe.style.display = 'block';     // show iframe
-    });
-  </script>
+<!-- Video 6 -->
+<div class="video-container">
+  <h2>夏コミや新衣装のお話がしたい！</h2>
+  <img class="thumbnail" src="thumbnail_6.png" alt="Video thumbnail">
+  <div class="play-button">▶️</div>
+  <iframe class="videoIframe" src="https://drive.google.com/file/d/10Uo6gK4WPtMgmuKgHRoG0sOHg1olwMy7/preview" allow="autoplay"></iframe>
+</div>
 
-  <div class="video-container" style="position: relative; width: 800px; max-width: 450px; cursor: pointer;">
-    <h2>【Project Winter】犯人じゃないです！信じてください！【しぐれうい視点】</h2>
-  
-    <!-- Custom thumbnail -->
-    <img id="thumbnail" src="thumbnail_7.png" alt="Video thumbnail" style="width:100%; display:block;">
-    <div class="play-button" 
-         style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
-                font-size:64px; color:white; text-shadow: 0 0 10px black; pointer-events:none;">
-      ▶️
-    </div>
-  
-    <!-- Hidden iframe -->
-    <iframe id="https://drive.google.com/file/d/1kVCky8bmpOHkrXGUuh-9dCEMLykDH7CU/preview"
-            width="800" height="450" allow="autoplay" style="display:none; border:none;">
-    </iframe>
-  </div>
-  <script>
-    const container = document.querySelector('.video-container');
-    const thumbnail = document.getElementById('thumbnail');
-    const iframe = document.getElementById('videoIframe');
-  
-    container.addEventListener('click', () => {
-      thumbnail.style.display = 'none';   // hide thumbnail
-      container.querySelector('.play-button').style.display = 'none'; // hide play icon
-      iframe.style.display = 'block';     // show iframe
-    });
-  </script>
+<!-- Video 7 -->
+<div class="video-container">
+  <h2>【Project Winter】犯人じゃないです！信じてください！【しぐれうい視点】</h2>
+  <img class="thumbnail" src="thumbnail_7.png" alt="Video thumbnail">
+  <div class="play-button">▶️</div>
+  <iframe class="videoIframe" src="https://drive.google.com/file/d/1kVCky8bmpOHkrXGUuh-9dCEMLykDH7CU/preview" allow="autoplay"></iframe>
+</div>
 
-  <div class="video-container" style="position: relative; width: 800px; max-width: 450px; cursor: pointer;">
-    <h2>【雑談】まったりお話させておくれよ</h2>
-  
-    <!-- Custom thumbnail -->
-    <img id="thumbnail" src="thumbnail_8.png" alt="Video thumbnail" style="width:100%; display:block;">
-    <div class="play-button" 
-         style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
-                font-size:64px; color:white; text-shadow: 0 0 10px black; pointer-events:none;">
-      ▶️
-    </div>
-    <!-- Hidden iframe -->
-    <iframe id="https://drive.google.com/file/d/1KEBaYht3tdZWA_RKT62g5lF6IaA3Vdqe/preview"
-            width="800" height="450" allow="autoplay" style="display:none; border:none;">
-    </iframe>
-  </div>
-  <script>
-    const container = document.querySelector('.video-container');
-    const thumbnail = document.getElementById('thumbnail');
-    const iframe = document.getElementById('videoIframe');
-  
+<!-- Video 8 -->
+<div class="video-container">
+  <h2>【雑談】まったりお話させておくれよ</h2>
+  <img class="thumbnail" src="thumbnail_8.png" alt="Video thumbnail">
+  <div class="play-button">▶️</div>
+  <iframe class="videoIframe" src="https://drive.google.com/file/d/1KEBaYht3tdZWA_RKT62g5lF6IaA3Vdqe/preview" allow="autoplay"></iframe>
+</div>
+
+<script>
+  // Handle thumbnail click for all video containers
+  const containers = document.querySelectorAll('.video-container');
+
+  containers.forEach(container => {
     container.addEventListener('click', () => {
-      thumbnail.style.display = 'none';   // hide thumbnail
-      container.querySelector('.play-button').style.display = 'none'; // hide play icon
-      iframe.style.display = 'block';     // show iframe
+      const thumbnail = container.querySelector('.thumbnail');
+      const iframe = container.querySelector('.videoIframe');
+      const playButton = container.querySelector('.play-button');
+
+      thumbnail.style.display = 'none';
+      playButton.style.display = 'none';
+      iframe.style.display = 'block';
     });
-  </script>
-  
+  });
+</script>
+
 </body>
 </html>
