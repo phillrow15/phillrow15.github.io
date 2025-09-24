@@ -6,152 +6,276 @@
   <link rel="icon" href="main_icon.png" type="image/png">
   <style>
     body {
-      margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(135deg, #e0eafc, #cfdef3);
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
       text-align: center;
-      padding: 40px 20px;
+      padding: 40px;
     }
-    h1 {
-      font-size: 2.5rem;
-      color: #222;
-      margin-bottom: 40px;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    }
+    h1 { color: #333; }
     .video-container {
-      max-width: 900px;
-      margin: 40px auto;
+      max-width: 800px;
+      margin: 30px auto;
       background: #fff;
-      padding: 25px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       position: relative;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      overflow: visible;
     }
-    .video-container:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-    }
-    h2 {
-      font-size: 1.4rem;
-      color: #333;
-      margin-bottom: 15px;
-    }
+    h2 { margin-bottom: 12px; color:#222; font-size:1.1rem; }
     .thumb {
       width: 100%;
-      height: 500px;
-      border-radius: 15px;
+      height: 450px;
+      border-radius: 10px;
       cursor: pointer;
       background-size: cover;
       background-position: center;
       position: relative;
+      display: block;
       overflow: hidden;
     }
     .thumb::after {
       content: "▶";
-      font-size: 100px;
+      font-size: 80px;
       color: white;
-      text-shadow: 0 0 25px rgba(0,0,0,0.9);
+      text-shadow: 0 0 15px rgba(0,0,0,0.7);
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      transition: transform 0.25s ease;
-    }
-    .thumb:hover::after {
-      transform: translate(-50%, -50%) scale(1.2);
+      pointer-events: none;
     }
     iframe {
       width: 100%;
-      height: 500px;
+      height: 450px;
       border: none;
-      border-radius: 15px;
+      border-radius: 10px;
       display: none;
+    }
+
+    /* Fullscreen button styles */
+    .fs-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 5;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+    }
+    .fs-btn:focus { outline: none; }
+
+    /* When iframe is active, show the iframe fullscreen button (hidden by default) */
+    .iframe-fs { display: none; }
+    .video-container.iframe-active .iframe-fs { display: block; }
+
+    /* Make sure controls are visible on mobile */
+    @media (max-width:700px){
+      .thumb, iframe { height: 260px; }
     }
   </style>
   <script>
-    function loadVideo(id) {
+    // cross-browser request fullscreen helper
+    function requestFullscreenOn(elem) {
+      if (!elem) return;
+      if (elem.requestFullscreen) return elem.requestFullscreen();
+      if (elem.webkitRequestFullscreen) return elem.webkitRequestFullscreen();
+      if (elem.mozRequestFullScreen) return elem.mozRequestFullScreen();
+      if (elem.msRequestFullscreen) return elem.msRequestFullscreen();
+    }
+
+    // load the iframe and optionally enter fullscreen
+    function loadVideo(id, enterFullscreen = false) {
       const thumb = document.getElementById("thumb-" + id);
       const iframe = document.getElementById("iframe-" + id);
-      thumb.style.display = "none";
-      iframe.style.display = "block";
+      const container = document.getElementById("container-" + id);
+
+      // hide thumbnail, show iframe
+      if (thumb) thumb.style.display = "none";
+      if (iframe) iframe.style.display = "block";
+      if (container) container.classList.add("iframe-active");
+
+      // ensure iframe has fullscreen permissions too (redundant but harmless)
+      if (iframe) {
+        iframe.setAttribute("allowfullscreen", "");
+        iframe.setAttribute("webkitallowfullscreen", "");
+        iframe.setAttribute("mozallowfullscreen", "");
+        iframe.setAttribute("allow", "autoplay; fullscreen");
+      }
+
+      // if the user requested fullscreen immediately, try to fullscreen the container
+      if (enterFullscreen && container) {
+        // small delay helps ensure the iframe is rendered before fullscreen is requested
+        setTimeout(() => {
+          requestFullscreenOn(container);
+        }, 120);
+      }
+    }
+
+    // convenience helper used by the iframe fullscreen button (when iframe already visible)
+    function enterFullscreen(id) {
+      const container = document.getElementById("container-" + id);
+      if (container) requestFullscreenOn(container);
     }
   </script>
 </head>
 <body>
 
-  <h1>🎬 Welcome to Shigure UI Video Collection (Fan Page)</h1>
+  <h1>🎬 Welcome to Shigure UI video's Page (not official)</h1>
 
-  <div class="video-container">
+  <!-- VIDEO 1 -->
+  <div class="video-container" id="container-1">
     <h2>しぐれういの初配信です！</h2>
+
+    <!-- Fullscreen icon on thumbnail: clicking it will load and immediately fullscreen -->
     <div id="thumb-1" class="thumb"
          style="background-image:url('thumbnail_1.jpg');"
-         onclick="loadVideo(1)">
+         onclick="loadVideo(1, false)">
+      <button class="fs-btn" title="Load + fullscreen" onclick="event.stopPropagation(); loadVideo(1, true);">⤢</button>
     </div>
-    <iframe id="iframe-1" src="https://drive.google.com/file/d/1Mw5N5HFRMkLBArHEDme8Oh9OqVX-3Em_/preview" allow="autoplay"></iframe>
+
+    <!-- iframe: has allow and allowfullscreen attributes -->
+    <iframe id="iframe-1"
+            src="https://drive.google.com/file/d/1Mw5N5HFRMkLBArHEDme8Oh9OqVX-3Em_/preview"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            webkitallowfullscreen
+            mozallowfullscreen
+            title="video 1"></iframe>
+
+    <!-- fullscreen button shown after iframe loads -->
+    <button class="fs-btn iframe-fs" title="Enter fullscreen" onclick="enterFullscreen(1)">⤢</button>
   </div>
 
-  <div class="video-container">
+  <!-- VIDEO 2 -->
+  <div class="video-container" id="container-2">
     <h2>お話しながらお絵かきする【#01】</h2>
     <div id="thumb-2" class="thumb"
          style="background-image:url('thumbnail_2.jpg');"
-         onclick="loadVideo(2)">
+         onclick="loadVideo(2, false)">
+      <button class="fs-btn" title="Load + fullscreen" onclick="event.stopPropagation(); loadVideo(2, true);">⤢</button>
     </div>
-    <iframe id="iframe-2" src="https://drive.google.com/file/d/1JN_y3zfT7VON5RxUSWdMEJbW5mvIIInw/preview" allow="autoplay"></iframe>
+    <iframe id="iframe-2"
+            src="https://drive.google.com/file/d/1JN_y3zfT7VON5RxUSWdMEJbW5mvIIInw/preview"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            webkitallowfullscreen
+            mozallowfullscreen
+            title="video 2"></iframe>
+    <button class="fs-btn iframe-fs" title="Enter fullscreen" onclick="enterFullscreen(2)">⤢</button>
   </div>
 
-  <div class="video-container">
+  <!-- VIDEO 3 -->
+  <div class="video-container" id="container-3">
     <h2>ありがとうを言いながらお絵かきする【#02】</h2>
     <div id="thumb-3" class="thumb"
          style="background-image:url('thumbnail_3.jpg');"
-         onclick="loadVideo(3)">
+         onclick="loadVideo(3, false)">
+      <button class="fs-btn" title="Load + fullscreen" onclick="event.stopPropagation(); loadVideo(3, true);">⤢</button>
     </div>
-    <iframe id="iframe-3" src="https://drive.google.com/file/d/1FRJFWxE_FJ-RetgwHJ8P8um9YkTY-agW/preview" allow="autoplay"></iframe>
+    <iframe id="iframe-3"
+            src="https://drive.google.com/file/d/1FRJFWxE_FJ-RetgwHJ8P8um9YkTY-agW/preview"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            webkitallowfullscreen
+            mozallowfullscreen
+            title="video 3"></iframe>
+    <button class="fs-btn iframe-fs" title="Enter fullscreen" onclick="enterFullscreen(3)">⤢</button>
   </div>
 
-  <div class="video-container">
+  <!-- VIDEO 4 -->
+  <div class="video-container" id="container-4">
     <h2>【作業雑談】仕事をするのでお話相手になってほしい</h2>
     <div id="thumb-4" class="thumb"
          style="background-image:url('thumbnail_4.jpg');"
-         onclick="loadVideo(4)">
+         onclick="loadVideo(4, false)">
+      <button class="fs-btn" title="Load + fullscreen" onclick="event.stopPropagation(); loadVideo(4, true);">⤢</button>
     </div>
-    <iframe id="iframe-4" src="https://drive.google.com/file/d/1hjVpQ098riPaGuBHujT4ZtoMbc86PpZ-/preview" allow="autoplay"></iframe>
+    <iframe id="iframe-4"
+            src="https://drive.google.com/file/d/1hjVpQ098riPaGuBHujT4ZtoMbc86PpZ-/preview"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            webkitallowfullscreen
+            mozallowfullscreen
+            title="video 4"></iframe>
+    <button class="fs-btn iframe-fs" title="Enter fullscreen" onclick="enterFullscreen(4)">⤢</button>
   </div>
 
-  <div class="video-container">
+  <!-- VIDEO 5 -->
+  <div class="video-container" id="container-5">
     <h2>告知をしたいしぐれうい【＋雑談】</h2>
     <div id="thumb-5" class="thumb"
          style="background-image:url('thumbnail_5.jpg');"
-         onclick="loadVideo(5)">
+         onclick="loadVideo(5, false)">
+      <button class="fs-btn" title="Load + fullscreen" onclick="event.stopPropagation(); loadVideo(5, true);">⤢</button>
     </div>
-    <iframe id="iframe-5" src="https://drive.google.com/file/d/1X8fVpp7JmvkKjktIhvK5Akm2N2oje_Je/preview" allow="autoplay"></iframe>
+    <iframe id="iframe-5"
+            src="https://drive.google.com/file/d/1X8fVpp7JmvkKjktIhvK5Akm2N2oje_Je/preview"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            webkitallowfullscreen
+            mozallowfullscreen
+            title="video 5"></iframe>
+    <button class="fs-btn iframe-fs" title="Enter fullscreen" onclick="enterFullscreen(5)">⤢</button>
   </div>
 
-  <div class="video-container">
+  <!-- VIDEO 6 -->
+  <div class="video-container" id="container-6">
     <h2>夏コミや新衣装のお話がしたい！</h2>
     <div id="thumb-6" class="thumb"
          style="background-image:url('thumbnail_6.jpg');"
-         onclick="loadVideo(6)">
+         onclick="loadVideo(6, false)">
+      <button class="fs-btn" title="Load + fullscreen" onclick="event.stopPropagation(); loadVideo(6, true);">⤢</button>
     </div>
-    <iframe id="iframe-6" src="https://drive.google.com/file/d/10Uo6gK4WPtMgmuKgHRoG0sOHg1olwMy7/preview" allow="autoplay"></iframe>
+    <iframe id="iframe-6"
+            src="https://drive.google.com/file/d/10Uo6gK4WPtMgmuKgHRoG0sOHg1olwMy7/preview"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            webkitallowfullscreen
+            mozallowfullscreen
+            title="video 6"></iframe>
+    <button class="fs-btn iframe-fs" title="Enter fullscreen" onclick="enterFullscreen(6)">⤢</button>
   </div>
 
-  <div class="video-container">
+  <!-- VIDEO 7 -->
+  <div class="video-container" id="container-7">
     <h2>【Project Winter】犯人じゃないです！信じてください！【しぐれうい視点】</h2>
     <div id="thumb-7" class="thumb"
          style="background-image:url('thumbnail_7.jpg');"
-         onclick="loadVideo(7)">
+         onclick="loadVideo(7, false)">
+      <button class="fs-btn" title="Load + fullscreen" onclick="event.stopPropagation(); loadVideo(7, true);">⤢</button>
     </div>
-    <iframe id="iframe-7" src="https://drive.google.com/file/d/1kVCky8bmpOHkrXGUuh-9dCEMLykDH7CU/preview" allow="autoplay"></iframe>
+    <iframe id="iframe-7"
+            src="https://drive.google.com/file/d/1kVCky8bmpOHkrXGUuh-9dCEMLykDH7CU/preview"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            webkitallowfullscreen
+            mozallowfullscreen
+            title="video 7"></iframe>
+    <button class="fs-btn iframe-fs" title="Enter fullscreen" onclick="enterFullscreen(7)">⤢</button>
   </div>
 
-  <div class="video-container">
+  <!-- VIDEO 8 -->
+  <div class="video-container" id="container-8">
     <h2>【雑談】まったりお話させておくれよ</h2>
     <div id="thumb-8" class="thumb"
          style="background-image:url('thumbnail_8.jpg');"
-         onclick="loadVideo(8)">
+         onclick="loadVideo(8, false)">
+      <button class="fs-btn" title="Load + fullscreen" onclick="event.stopPropagation(); loadVideo(8, true);">⤢</button>
     </div>
-    <iframe id="iframe-8" src="https://drive.google.com/file/d/1KEBaYht3tdZWA_RKT62g5lF6IaA3Vdqe/preview" allow="autoplay"></iframe>
+    <iframe id="iframe-8"
+            src="https://drive.google.com/file/d/1KEBaYht3tdZWA_RKT62g5lF6IaA3Vdqe/preview"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            webkitallowfullscreen
+            mozallowfullscreen
+            title="video 8"></iframe>
+    <button class="fs-btn iframe-fs" title="Enter fullscreen" onclick="enterFullscreen(8)">⤢</button>
   </div>
 
 </body>
