@@ -1,349 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>しぐれういビデオ — thumbnail + iframe</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <title>しぐれういビデオ</title>
   <link rel="icon" href="main_icon.png" type="image/png">
   <style>
-    :root{
-      --card-padding: 18px;
-      --card-radius: 10px;
-      --shadow: 0 2px 10px rgba(0,0,0,.08);
-    }
-    body{
+    body {
       font-family: Arial, sans-serif;
-      background:#f4f4f4;
-      color:#222;
-      padding:32px;
-      text-align:center;
-    }
-    h1{ margin-bottom:18px; }
-    .video-card{
-      max-width:900px;
-      margin:22px auto;
-      background:#fff;
-      padding:var(--card-padding);
-      border-radius:var(--card-radius);
-      box-shadow:var(--shadow);
-    }
-    .video-title{ margin:0 0 12px; font-size:1.05rem; text-align:left; }
-    .video-stage{
-      position:relative;
-      width:100%;
-      padding-top:56.25%; /* 16:9 */
-      border-radius:calc(var(--card-radius) - 2px);
-      overflow:hidden;
-      background:#000;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 40px;
     }
 
-    /* overlay thumbnail / image */
-    .stage-thumb{
-      position:absolute; inset:0;
-      width:100%; height:100%;
-      object-fit:cover;
-      display:block;
-      cursor:pointer;
+    h1 {
+      color: #333;
     }
 
-    /* play button overlay */
-    .play-btn{
-      position:absolute;
-      top:50%; left:50%;
-      transform:translate(-50%,-50%);
-      z-index:6;
-      border:0;
-      background: rgba(0,0,0,0.45);
-      color:white;
-      font-size:34px;
-      width:84px; height:84px;
-      border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.25);
-    }
-    .play-btn:focus{ outline:3px solid rgba(255,255,255,0.22); }
-
-    /* spinner while iframe loads */
-    .spinner{
-      position:absolute;
-      top:50%; left:50%;
-      transform:translate(-50%,-50%);
-      z-index:7;
-      width:48px; height:48px;
-      border-radius:50%;
-      border:5px solid rgba(255,255,255,0.18);
-      border-top-color: rgba(255,255,255,0.9);
-      animation:spin .9s linear infinite;
-      display:none;
-    }
-    @keyframes spin{ to{ transform:translate(-50%,-50%) rotate(360deg);} }
-
-    /* iframe inserted dynamically */
-    .video-iframe{
-      position:absolute;
-      inset:0;
-      width:100%; height:100%;
-      border:0;
-      display:block;
-      z-index:2;
+    .video-container {
+      position: relative;
+      max-width: 800px;
+      width: 100%;
+      margin: 30px auto;
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
-    /* close button when iframe present */
-    .close-btn{
-      position:absolute;
-      top:8px; right:8px;
-      z-index:9;
-      background: rgba(0,0,0,0.5);
-      color:#fff;
-      border:0;
-      width:36px; height:36px;
-      border-radius:6px;
-      display:none;
-      cursor:pointer;
+    .video-container h2 {
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: #222;
     }
 
-    .open-link{
-      display:inline-block; margin-top:10px; font-size:.9rem;
-      color:#0073e6; text-decoration:none;
+    .video-frame {
+      width: 100%;
+      height: 450px;
+      border: none;
+      border-radius: 10px;
     }
 
-    .hidden{ display:none !important; }
+    /* Overlay (thumbnail + play button) */
+    .overlay {
+      position: absolute;
+      top: 55px; /* account for the h2 + padding */
+      left: 15px;
+      right: 15px;
+      height: 450px;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.6);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .play-btn {
+      position: absolute;
+      font-size: 64px;
+      color: white;
+      text-shadow: 0 0 12px black;
+      pointer-events: none;
+    }
+
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
 
-  <h1>🎬 Welcome to Shigure UI video's Page (not official)</h1>
+<h1>🎬 Welcome to Shigure UI video's Page (not official)</h1>
 
-  <!-- Example card (copy/paste for each video and change data-src and thumbnail) -->
-  <div class="video-card" data-src="https://drive.google.com/file/d/1Mw5N5HFRMkLBArHEDme8Oh9OqVX-3Em_/preview">
-    <h2 class="video-title">しぐれういの初配信ですhello！</h2>
-    <div class="video-stage">
-      <img class="stage-thumb" src="thumbnail_1.png" alt="しぐれういの初配信です thumbnail">
-      <button class="play-btn" aria-label="Play しぐれういの初配信です">▶</button>
-      <div class="spinner" aria-hidden="true"></div>
-      <button class="close-btn" aria-label="Close video">✕</button>
-      <!-- iframe will be inserted here -->
-    </div>
-    <a class="open-link hidden" href="#" target="_blank" rel="noopener">Open in Drive (fallback)</a>
+<!-- Video Example -->
+<div class="video-container">
+  <h2>告知をしたいしぐれうい【＋雑談】</h2>
+  <iframe class="video-frame" 
+          src="https://drive.google.com/file/d/1X8fVpp7JmvkKjktIhvK5Akm2N2oje_Je/preview"
+          allow="autoplay">
+  </iframe>
+  <div class="overlay">
+    <img src="thumbnail_5.png" alt="Video thumbnail">
+    <div class="play-btn">▶️</div>
   </div>
-
-  <!-- Duplicate blocks below for each video, replace data-src and thumbnail_X.png -->
-  <div class="video-card" data-src="https://drive.google.com/file/d/1JN_y3zfT7VON5RxUSWdMEJbW5mvIIInw/preview">
-    <h2 class="video-title">お話しながらお絵かきする【#01】</h2>
-    <div class="video-stage">
-      <img class="stage-thumb" src="thumbnail_2.png" alt="お話しながらお絵かきする thumbnail">
-      <button class="play-btn" aria-label="Play お話しながらお絵かきする【#01】">▶</button>
-      <div class="spinner" aria-hidden="true"></div>
-      <button class="close-btn" aria-label="Close video">✕</button>
-    </div>
-    <a class="open-link hidden" href="#" target="_blank" rel="noopener">Open in Drive (fallback)</a>
-  </div>
-
-  <div class="video-card" data-src="https://drive.google.com/file/d/1FRJFWxE_FJ-RetgwHJ8P8um9YkTY-agW/preview">
-    <h2 class="video-title">ありがとうを言いながらお絵かきする【#02】</h2>
-    <div class="video-stage">
-      <img class="stage-thumb" src="thumbnail_3.png" alt="ありがとうを言いながらお絵かきする thumbnail">
-      <button class="play-btn" aria-label="Play ありがとうを言いながらお絵かきする【#02】">▶</button>
-      <div class="spinner" aria-hidden="true"></div>
-      <button class="close-btn" aria-label="Close video">✕</button>
-    </div>
-    <a class="open-link hidden" href="#" target="_blank" rel="noopener">Open in Drive (fallback)</a>
-  </div>
-
-  <div class="video-card" data-src="https://drive.google.com/file/d/1hjVpQ098riPaGuBHujT4ZtoMbc86PpZ-/preview">
-    <h2 class="video-title">【作業雑談】仕事をするのでお話相手になってほしい</h2>
-    <div class="video-stage">
-      <img class="stage-thumb" src="thumbnail_4.png" alt="作業雑談 thumbnail">
-      <button class="play-btn" aria-label="Play 作業雑談">▶</button>
-      <div class="spinner" aria-hidden="true"></div>
-      <button class="close-btn" aria-label="Close video">✕</button>
-    </div>
-    <a class="open-link hidden" href="#" target="_blank" rel="noopener">Open in Drive (fallback)</a>
-  </div>
-
-  <div class="video-card" data-src="https://drive.google.com/file/d/1X8fVpp7JmvkKjktIhvK5Akm2N2oje_Je/preview">
-    <h2 class="video-title">告知をしたいしぐれうい【＋雑談】</h2>
-    <div class="video-stage">
-      <img class="stage-thumb" src="thumbnail_5.png" alt="告知をしたいしぐれうい thumbnail">
-      <button class="play-btn" aria-label="Play 告知をしたいしぐれうい">▶</button>
-      <div class="spinner" aria-hidden="true"></div>
-      <button class="close-btn" aria-label="Close video">✕</button>
-    </div>
-    <a class="open-link hidden" href="#" target="_blank" rel="noopener">Open in Drive (fallback)</a>
-  </div>
-
-  <div class="video-card" data-src="https://drive.google.com/file/d/10Uo6gK4WPtMgmuKgHRoG0sOHg1olwMy7/preview">
-    <h2 class="video-title">夏コミや新衣装のお話がしたい！</h2>
-    <div class="video-stage">
-      <img class="stage-thumb" src="thumbnail_6.png" alt="夏コミや新衣装 thumbnail">
-      <button class="play-btn" aria-label="Play 夏コミや新衣装のお話がしたい！">▶</button>
-      <div class="spinner" aria-hidden="true"></div>
-      <button class="close-btn" aria-label="Close video">✕</button>
-    </div>
-    <a class="open-link hidden" href="#" target="_blank" rel="noopener">Open in Drive (fallback)</a>
-  </div>
-
-  <div class="video-card" data-src="https://drive.google.com/file/d/1kVCky8bmpOHkrXGUuh-9dCEMLykDH7CU/preview">
-    <h2 class="video-title">【Project Winter】犯人じゃないです！信じてください！【しぐれうい視点】</h2>
-    <div class="video-stage">
-      <img class="stage-thumb" src="thumbnail_7.png" alt="Project Winter thumbnail">
-      <button class="play-btn" aria-label="Play Project Winter">▶</button>
-      <div class="spinner" aria-hidden="true"></div>
-      <button class="close-btn" aria-label="Close video">✕</button>
-    </div>
-    <a class="open-link hidden" href="#" target="_blank" rel="noopener">Open in Drive (fallback)</a>
-  </div>
-
-  <div class="video-card" data-src="https://drive.google.com/file/d/1KEBaYht3tdZWA_RKT62g5lF6IaA3Vdqe/preview">
-    <h2 class="video-title">【雑談】まったりお話させておくれよ</h2>
-    <div class="video-stage">
-      <img class="stage-thumb" src="thumbnail_8.png" alt="雑談 thumbnail">
-      <button class="play-btn" aria-label="Play 雑談">▶</button>
-      <div class="spinner" aria-hidden="true"></div>
-      <button class="close-btn" aria-label="Close video">✕</button>
-    </div>
-    <a class="open-link hidden" href="#" target="_blank" rel="noopener">Open in Drive (fallback)</a>
-  </div>
+</div>
 
 <script>
-  // Helpers
-  function appendAutoplayParams(src){
-    // prefer autoplay+muted to increase chance of auto-start
-    const params = 'autoplay=1&mute=1';
-    return src + (src.includes('?') ? '&' : '?') + params;
-  }
+  // Handle play overlay clicks
+  document.querySelectorAll('.video-container').forEach(container => {
+    const overlay = container.querySelector('.overlay');
+    const iframe = container.querySelector('.video-frame');
 
-  function createIframe(src){
-    const iframe = document.createElement('iframe');
-    iframe.className = 'video-iframe';
-    iframe.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
-    iframe.setAttribute('allowfullscreen', '');
-    iframe.loading = 'lazy';
-    iframe.src = appendAutoplayParams(src);
-    return iframe;
-  }
+    overlay.addEventListener('click', () => {
+      overlay.classList.add('hidden');
 
-  function stopCard(card){
-    const stage = card.querySelector('.video-stage');
-    const iframe = stage.querySelector('iframe.video-iframe');
-    const thumb = stage.querySelector('.stage-thumb');
-    const playBtn = stage.querySelector('.play-btn');
-    const spinner = stage.querySelector('.spinner');
-    const closeBtn = stage.querySelector('.close-btn');
-    const openLink = card.querySelector('.open-link');
-
-    // remove iframe (stops playback)
-    if(iframe) iframe.remove();
-
-    // restore UI
-    if(thumb) thumb.classList.remove('hidden');
-    if(playBtn) playBtn.classList.remove('hidden');
-    if(spinner) spinner.style.display = 'none';
-    if(closeBtn) closeBtn.style.display = 'none';
-    if(openLink) openLink.classList.add('hidden');
-
-    // clear any stored timeout
-    const to = card._loadTimeout;
-    if(to) { clearTimeout(to); card._loadTimeout = null; }
-  }
-
-  function stopAllExcept(current){
-    document.querySelectorAll('.video-card').forEach(card => {
-      if(card !== current) stopCard(card);
-    });
-  }
-
-  function playCard(card){
-    const stage = card.querySelector('.video-stage');
-    const thumb = stage.querySelector('.stage-thumb');
-    const playBtn = stage.querySelector('.play-btn');
-    const spinner = stage.querySelector('.spinner');
-    const closeBtn = stage.querySelector('.close-btn');
-    const openLink = card.querySelector('.open-link');
-    const src = card.getAttribute('data-src');
-
-    // If already playing, do nothing
-    if(stage.querySelector('iframe.video-iframe')) return;
-
-    // stop other cards
-    stopAllExcept(card);
-
-    // UI: show spinner, hide thumbnail & play
-    if(spinner) spinner.style.display = 'block';
-    if(playBtn) playBtn.classList.add('hidden');
-    if(thumb) thumb.classList.add('hidden');
-
-    // Create iframe
-    const iframe = createIframe(src);
-
-    // Add load handler to remove spinner and show close button
-    let loaded = false;
-    iframe.addEventListener('load', () => {
-      loaded = true;
-      if(spinner) spinner.style.display = 'none';
-      if(closeBtn) closeBtn.style.display = 'block';
-      // Ensure fallback link hidden
-      if(openLink) openLink.classList.add('hidden');
-    });
-
-    // Add to stage
-    stage.appendChild(iframe);
-
-    // Fallback: if iframe doesn't load in X seconds, show "Open in Drive"
-    const timeoutMs = 12000; // 12s
-    card._loadTimeout = setTimeout(() => {
-      if(!loaded){
-        // stop and show fallback link
-        if(iframe && iframe.parentNode) iframe.remove();
-        if(spinner) spinner.style.display = 'none';
-        if(closeBtn) closeBtn.style.display = 'none';
-        if(openLink){
-          openLink.href = src;
-          openLink.classList.remove('hidden');
-          openLink.focus();
-        } else {
-          window.open(src, '_blank', 'noopener');
-        }
+      // Trick: reload iframe with autoplay param
+      let src = iframe.src;
+      if (!src.includes("autoplay=1")) {
+        iframe.src = src + (src.includes("?") ? "&autoplay=1" : "?autoplay=1");
       }
-      card._loadTimeout = null;
-    }, timeoutMs);
-  }
-
-  // Wire up events
-  document.querySelectorAll('.video-card').forEach(card => {
-    const stage = card.querySelector('.video-stage');
-    const playBtn = card.querySelector('.play-btn');
-    const thumb = stage.querySelector('.stage-thumb');
-    const closeBtn = stage.querySelector('.close-btn');
-    const openLink = card.querySelector('.open-link');
-
-    // Play when pressing the big button
-    playBtn.addEventListener('click', (ev) => {
-      ev.stopPropagation();
-      playCard(card);
     });
-
-    // Play by clicking the thumbnail/stage
-    stage.addEventListener('click', (ev) => {
-      // ignore clicks when iframe already present (so control passes to iframe)
-      if(stage.querySelector('iframe.video-iframe')) return;
-      playCard(card);
-    });
-
-    // Close / stop playback
-    closeBtn.addEventListener('click', (ev) => {
-      ev.stopPropagation();
-      stopCard(card);
-    });
-
-    // If fallback link clicked, allow opening in new tab (no extra handling needed)
-    // (openLink already has target="_blank")
-  });
-
-  // stop all when leaving page
-  window.addEventListener('pagehide', () => {
-    document.querySelectorAll('.video-card').forEach(stopCard);
   });
 </script>
 
